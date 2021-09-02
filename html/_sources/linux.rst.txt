@@ -1,0 +1,547 @@
+=============
+Linux入門編
+=============
+
+目的
+====
+Linuxの基本操作を身につける
+
+
+基本ルートディレクトリー
+=====================
+`参考サイト: <https://www.linuxmaster.jp/linux_skill/2010/02/06linux.html>`__
+
+**/ルートディレクトリ**::
+
+    /bin 一般ユーザー向けの基本コマンド
+    /boot 起動に必要なファイル
+    /dev デバイスファイル
+    /etc 設定ファイル
+        ├ /etc/opt/ optの設定ファイル
+        ├ /etc/X11/ X Window System、 version11用の設定ファイル
+        ├ /etc/sgml/ SGMLの設定ファイル
+        └ /etc/xml/ XML の設定ファイル
+    /boot 起動に必要なファイル
+    /home　ユーザーのホームディレクトリ
+    /lib 共有ライブラリ
+    /mnt ファイルシステムの一時的なマウントポイント用ディレクトリ
+    /media CD-ROMなどのリムーバブル媒体(media)のマウントポイント
+    /proc カーネルやプロセスに関する情報をテキストで表示する仮想ファイルシステム
+    /root root用ホームディレクトリ
+    /sbin システム管理用コマンド
+    /tmp ファイルなどを一時的に保管するディレクトリ
+    /srv システムに提供されたサイト固有のデータ
+    /usr プログラムやカーネルソース
+        ├ /usr/bin/ /binと同じだが、基本的ではない
+        ├ /usr/include/ 標準 includeファイル
+        ├ /usr/lib/ /libと同類
+        ├ /usr/sbin/ /sbinと同じだが、基本的ではない
+        ├ /usr/share/ アーキテクチャに依存しない共有データ
+        ├ /usr/src/ ソースコード（カーネルのソースコードとそのヘッダファイル）
+        ├ /usr/X11R6/ X Window System, Version 11 Release 6
+        └ /usr/local/ ホスト固有のローカルデータを格納する第三階層
+   /var システムログなどの動的に変化するファイル
+    　   ├ /var/lock/ 使用中リソースを保持するファイル
+    　   ├ /var/log/ 各種ログファイル
+    　   ├ /var/mail/ ユーザーのメールボックス
+    　   ├ /var/run/ ブート以降の走行中システムに関する情報
+    　   ├ /var/spool/ 処理待ち状態のタスクのスプール
+    　   ├ /var/spool/mail/ 互換のために残された、かつてのユーザーのメールボックス
+    　   └ /var/tmp/ 一時ファイル置場 (マルチユーザーモードではこちらの使用が推奨される)
+
+Linuxの全体像
+===================
+
+- Linuxの特徴
+    - Unix互換のオペレーティングシステム(OS)
+    - Linuxカーネルに、システムツールを統合
+    - オープンソース
+    - 多くのITシステムに採用(スーパーコンピュータ、スマートフォン、デジタル家電)
+- Unixとは
+     Unixは、1969年に、アメリカのベル研究所で開発が始まりました。同時に複数のプログラムを実行する「マルチタスク」、複数のユーザーが利用できる「マルチユーザー」といった機能をサポートしています。
+
+
+Linuxの利用形態
+=================
+
+Linuxをどのような形で利用しているのか学習します。スーパーコンピュータからデジタル家電まで、Linuxはさまざまな場所で活躍しています。
+
+* 主なコマンド::
+
+    パッケージをアップデート
+        - sudo apt update
+    アプリをインストール
+        - sudo apt install sl
+    完全にアプリを削除
+        - sudo apt purge sl
+    パケージの中身を確認
+        - dpkg -l
+        - dpkg -l | less
+        - dpkg -l "vim*"
+* シェルコマンド::
+
+    文字の出力
+        - echo "hello world"
+    リダイレクトでテキストを出力
+        - echo "hello world" > hello.txt
+        - ls -l > list.txt
+        - dpkg -l > dpkg.txt
+    パイプでコマンドを引き渡す
+        - dpkg -l | less
+
+* ファイルシステム
+    ``アプリケーションで作成などをデータ保存``
+* ファイルのリンクを作成::
+
+    シンボリックリンク
+        - ln -s hello.txt hello.symbol
+    ハードリンク
+        - ln hello.txt hello.hard
+    追記
+        echo "hello paiza" >> hello.txt
+*  検索コマンドをfind::
+
+    ファイルを検索
+        - find dir
+    特定のファイルを検索
+        - find dir -name "hello.txt"
+    ファイルの全ての中身・サブディレクトリー内も検索
+        - find dir "*.md"
+    日付で検索・1日以内にファイルが作成されたもの
+        - find dir -name "*.txt" - mtime 0
+*  テキスト検索コマンドgrep::
+
+    ファイルの内の文字を検索
+        - grep "alice" dir/alice.md
+    サブディレクトリー内のあファイルも検索
+        - grep -r "alice" dir/*txt
+    ファイル名だけ表示
+        - grep -rl "alice" dir/*txt
+    ファイル名に業番号を表示
+        - grep -n "alice" dir/+txt
+* 正規表現:
+    メタ文字
+        - . 任意の文字列
+        - [.=] 指定の候補の文字
+        - [a-z] 指定の小文字aからz
+        - [0-9]　指定の数字0から9　
+    特定のhelloを取り出す
+        - grep -n "hello." dir/hello.txt --> hello paiza, hello_a, hello_b
+        - grep -n "hello_."  --> hello_a, hello_b
+        - grep -n "hello[_=]" --> hello_, hello_a, hello_b, hello_b, hello=a
+        - grep -n "hello_[a-z]" --> hello_a, hello_b
+        - grep -n "hello_[0-9]" --> hello_1, hello_2
+
+* 文字数・位置を指定する
+    eオプションをつける
+        - -E ?　数字が0個もしくは１個
+        - -E *  0個以上続く場合
+        - -E +  1個以上続く場合
+        - -E {2} 2個続く場合
+* 標準コマンドとgrepの組み合わせ
+    | dpkg -l | less
+    | dpkg -l | grep -n "python"  | less > output.txt
+
+* プロセス
+    実行中のファイルを確認
+        - ps aux
+        - a 自分以外の実行ファイルを表示
+        - u ユーザー名と開始時刻を表示
+        - x システムで実行したファイルを表示
+
+    特定の実行ファイルの検索の絞り込み
+        - ps aux | grep "apache"
+
+* bashのカスタマイズ::
+
+    ariasで実行コマンドのショットキーを確認
+        - arias
+    ariasでショットカキーを登録
+        - arias hello='echo "hello world'
+    シェル名の環境変数を表示
+        - ehco $PS1
+    環境変数の置き換え
+        - export $PS1= "[\u@\h \W]\$"
+    注意
+        - 再起動すると設定した値が初期化される
+        - その場合は.bashrcに変更したい環境変数を追記する
+
+Vimの特徴を理解
+==============
+
+* 機能的な特徴
+    ・機能に合わせたモードを持つ　(ノーマル、挿入、ビジュアル、検索、コマンドライン)
+    ・キー入力がコマンドになる
+    ・コマンドの組み合わせで操作できる
+
+* Vimでカーソルを移動させる
+    行番号を表示
+        `:set number`
+    ワード単位で移動
+        - [w] 次の単語の先頭に移動
+        - [b] 前の単語の先頭に移動
+        - [e] 次に単語の末尾に移動
+
+    先頭の末尾に移動
+        - [$] 行の末尾に移動
+        - [^] 行の先頭にジャンプ
+
+    テキスト全体の先頭と末尾に移動
+        - [gg] テキスト全体にジャンプ
+        - [G] テキスト全体末尾にジャンプ
+        - [(number)G](number)行にジャンプ
+    %で、対応するカッコに移動
+        - [%] カッコに移動
+    数字で移動を繰り返す
+        - [5w] 5ワード分、次に移動
+        - [5b] 5ワード分、前に移動
+        - [5j] 5行下に移動
+        - [5k] 5行上に移動
+
+* テキストの削除と取り消し
+    削除と取り消し
+        - [x] カーソル位置の文字を削除する
+        - [X] カーソル前の文字を削除する
+        - [u] 直前の操作を取り消す
+    いろいろな文字削除
+        - [dw] 単語末尾までと空白を削除する
+        - [dd] 行を削除する
+    キーの組み合わせて操作
+        Vimでは、操作を組み合わせて利用できます。このとき基準になるのが、カーソルの移動キーです。たとえば、「w」キーで単語単位でカーソルを移動しました。これを削除の「d」キーと組み合わせると、その位置から単語の末尾と空白を削除します。
+        数字の「2」に続けて「w」キーで単語2つ分移動したので、「d2w」と入力すると、単語2つ分を削除します。
+        それから、「$」(ドル)マークで行の末尾まで移動するので、「d」と「$」(ドル)マークを組み合わせると、現在の位置から行末までを削除します。
+        このようなルールは、ノーマルモードの多くの機能で利用できます。
+
+- コピーと貼り付け
+    - 貼り付け
+        - [p] カーソルの後ろに貼り付け
+        -  [P] カーソルの前に貼り付け
+    - コピー
+        - [yw] 単語をコピー
+        - [y2w] 複数の単語をコピー
+        - [yy] 1行コピー
+
+    - ビュジュアルモード
+        - [v] ビジュアルモードに切り替える
+
+
+- 一文字検索
+    - [f*] 右方向にある「*」の文字に移動する
+    - [F*] 左方向にある「*」の文字に移動する
+    - [;] 1文字検索を繰り返す
+    - [,] 逆方向に、1文字検索を繰り返す
+
+- テキストを検索
+    - [/(keyword)] 下方向に検索
+    - [?(keyword)] 上方向に検索
+    - [n] 次の候補に移動
+    - [N] 前の候補に戻る
+
+- カーソル１の単語を検索
+
+- 名前をつけてマークする
+    - [m][a] aという名前をつける
+    - [`][a]のマークにジャンプする
+    - :marks マーク一覧を表示する
+
+- 正規表現
+    - 置換
+        - :%s/before/after/g %でテキスト全体sで置換モード/置き換えする対象/置き換えする単語/gで実行/cオプションで置換内容を確認
+
+        - 3, 5s/before/after/g 3,5行を範囲に指定
+
+
+システム管理の基本を理解
+====================
+
+
+* システム管理の主な基本機能
+    - ユーザーやグループの管理
+    - ファイルシステムのアクセス権限
+    - サービス管理
+    - ジョブスケジューリング
+    - 地域設定
+
+* ユーザーアカウントの種類
+    - 一般ユーザー：通常の利用者を登録
+    - スーパーユーザー：システム管理者、ルート
+    - システムアカウント：アプリケーションやサービスで利用するアカウント
+
+* パーミッションとは
+    Linuxでは、ディレクトリとファイルに対して、ユーザーとグループごとにアクセス権限を与えます。これを「パーミッション」と呼びます。
+
+* 参考ページ(コマンド実行・ユーザー管理)::
+
+        【 sudo 】指定したユーザーでコマンドを実行する | 日経 xTECH（クロステック）
+        https://tech.nikkeibp.co.jp/it/article/COLUMN/20071205/288862/
+
+        Linuxでユーザーの一覧や現在のユーザを確認する方法とは？
+        https://eng-entrance.com/linux-user-show
+
+        Ubuntuユーザ追加とsudo権限付与。ユーザ/グループ操作まとめ | WWWクリエイターズ
+        http://www-creators.com/archives/241
+
+        【 adduser 】コマンド――新規ユーザーを作成する：Linux基本コマンドTips - ＠IT
+        https://www.atmarkit.co.jp/ait/articles/1811/08/news037.html
+
+
+        【 userdel 】 ユーザーを削除する | 日経 xTECH（クロステック）
+        https://tech.nikkeibp.co.jp/it/article/COLUMN/20060227/230926/
+
+        【 usermod 】 ユーザーのアカウント情報を変更する | 日経 xTECH（クロステック）
+        https://tech.nikkeibp.co.jp/it/article/COLUMN/20060228/230982/
+        ----------------------------------------------------------------
+
+        ジェブスケージューリング
+
+        クロン(cron)をさわってみるお - Qiita
+        https://qiita.com/katsukii/items/d5f90a6e4592d1414f99
+
+        【 crontab 】 プログラムを定期的に実行するcrondの設定ファイルを編集する | 日経 xTECH（クロステック）
+        https://tech.nikkeibp.co.jp/it/article/COLUMN/20060227/230737/
+
+        cron の設定ガイド
+        https://www.express.nec.co.jp/linux/distributions/knowledge/system/crond.html
+
+        crontabコマンドについてまとめました 【Linuxコマンド集】
+
+
+        https://eng-entrance.com/linux-command-crontab
+
+        cron力をつけよう！全てのcrontab入門者に贈る9個のテクニック · DQNEO起業日記
+        http://dqn.sakusakutto.jp/2012/06/cron_crontab9.html
+        ----------------------------------------------------------------
+
+        ローケルタイムゾン
+
+
+        【Linux入門】ローカライゼーションのためのロケール情報設定方法
+        https://eng-entrance.com/linux-localization-locale
+
+        Linux - ローカライゼーションと国際化
+        https://www.infraeye.com/study/linuxz43.html
+
+        ubuntuで（できるだけ）全部のlocaleを追加する - Qiita
+        https://qiita.com/inayuta/items/a057020f5d836329b804
+
+        ロケールの確認・設定
+        http://hogepon.net/2016/12/01/post-25/
+
+        【Ubuntu 18.04 LTS Server】日本語環境にする（日本語ロケールとタイムゾーンの変更） | The modern stone age.
+        https://www.yokoweb.net/2018/05/04/ubuntu-18_04-lts-server-japanese/
+
+
+ユーザ情報を確認
+================
+
+* ログインしているユーザーを表示
+    - who
+
+* ユーザー一覧を確認
+    - cat /etc/passwd
+
+* ユーザー一覧の項目
+    - ユーザー名 ubuntu
+    - パスワード x
+    - uid 1000
+    - gid 1000
+    - コメント ,,,
+    - ホームディレクトリ /home/ubuntu
+    - デフォルトシェル /bin/bash
+
+* ユーザー情報のコメントを変更する
+    - sudo usermod -c helloworld ubuntu
+
+
+* sudoコマンドとは
+    指定したユーザーとしてコマンドを実行するシステム管理用のコマンド。特にユーザーを指定しない場合は、スーパーユーザーとしてコマンドを実行する。
+
+
+ユーザーを追加
+==============
+Linuxでユーザーアカウントを作成する方法を学習します。そして、ユーザーのホームディレクトリ間で、ディレクトリやファイルに、どのようにアクセスできるか確認します。
+
+* ユーザーアカウントを作成
+    - sudo adduser tensho
+    - create passwd
+
+* ユーザーを切り替える
+    - su [targetuser]
+    - ls  -l /home/ubuntu 他のユーザーディレクトリを読み込む
+    - ls -l /home/tensho 作成したユーザーのデイレクトりを確認
+
+
+* suコマンドについて
+    - suでユーザーきりかる
+    - su だけだどsuperuserのroot権限にアクセス可能
+
+
+グループ情報を確認
+=================
+
+* グループを一覧表示
+    - cat /etc/group
+* グループ一覧の項目
+    - group name: vagrant
+    - paswd x : no pass
+    - group id : 1000
+    - group member(sub member)
+
+* グループメンバーを確認
+    - groups vagrant
+    - groups vagrant root syslog
+
+* ユーザーidやグループidを表示
+    - id vagrant
+
+グループを追加
+================
+
+* グループを作成
+    - sudo groupadd test-group
+* ユーザーにグループを割り当てる
+    - sudo usermod -aG test-group tensho
+    - sudo gpasswd -a vagrant test-group
+
+* グループからメンバーを削除する
+    - sudo gpasswd -d tensho test-group
+
+* グループを削除
+    - sudo gpasswd test-group
+
+
+アクセス権限
+============
+
+* lsコマンドの詳細表示
+    - ファイルタイプ
+    - パーミション
+    - ハードリンク数
+    - オーナー名
+    - グループ名
+    - ファイルサイズ
+    - タイムスタンプ
+    - ファイル名
+
+* パーミッションの種類
+    - 左の3文字 ： 所有者のアクセス権限
+    - 中央3文字 ： 所有グループのアクセス権限
+    - 右の3文字 ： その他のユーザー・グループのアクセス権限
+
+    - r：読み込み可
+    - w：書き込み可
+    - x：実行可
+    - -：アクセス権限なし
+
+* アクセス権限
+    - パーミッションをパターンで変更
+    - chmod a+w hello.txt
+
+    - パターン詳細::
+
+
+        【権限を変えるユーザー】
+        a：すべてのユーザー
+        u：所有者のみ
+        g：所有グループのみ
+        o：その他のユーザー
+
+        【権限に対する操作】
+        +：追加する
+        -：削除する
+
+        【操作する権限】
+        r：読み込み権限  4
+        w：書き込み権限   2
+        x：実行権限        1
+
+ジェブスケジューリング
+=====================
+Linuxのジョブスケジューリングについて学習します。ジョブスケジューリングは、指定の時間に指定のプログラムを自動実行する機能です。この機能を利用することで、1日1回、Webサーバのアクセスログをバックアップしたり、月に1度、不要なファイルを削除したり、といった自動処理が実現できます。
+
+* ジェブスケジューリングとは::
+
+
+        ジョブスケジューリングは、指定の時間に指定のプログラムを自動実行する機能
+
+        cron
+        - 定期的に自動実行
+        - crondとcrontabコマンドで構成
+        at
+        - 1回だけ自動実行
+        - 標準入力でスクリプトを指定する
+
+* cronデーモンを実行状況を確認
+    - /etc/init.d/cron status
+* 登録してあるジェブを確認
+    - crontab -l
+
+* ジェブを登録/削除する
+    - crontab -e
+
+* crontabの書き方::
+
+        min hour day month week (command)
+
+        - min 分 0 ~ 59
+        - hour 時 0 ~ 23
+        - day 日 1 ~ 31
+        - month 月 1 ~ 12
+        - week 曜日　0 ~ 6 (0が日曜日)
+
+        「/」で、後に続く間隔で処理を実行する
+
+
+地域設定
+=========
+
+* 主な地域設定
+    - locale：OSを利用する地域を表す情報
+
+    - timezone：OSを利用する地域の時間帯
+    - Local time：現地時間
+    - Universal time：世界標準時
+    - RTC time：ハードウェア時間
+
+* ロケールを確認
+    - locale
+
+* 追加できるロケールを確認
+    - locale -a
+
+* 日本語のロケールを追加
+    - sudo apt-get update
+    - sud0 apt upgrade
+    - sudo apt install languange-pack-ja
+    - sudo export LNNG=ja_JP.utf8
+* タイムゾーンを確認
+    - sudo date
+    - sudo timedatectl
+
+* タイムゾーンを変更
+    - sudo timedatectl set-timezone Asia/Tokyo
+
+
+シェルスクリプトを理解する
+=========================
+
+シェルスクリプトの概要を学習します。シェルスクリプトは、どんなもので、どんな役割を持っているのか理解しましょう。
+
+* 種類を確認::
+
+    $ echo $SHELL
+    /bin/bash
+
+* シェルスクリプトでHello world
+    - hello.sh
+    - ehco "Hello world"
+
+* コードを実行
+    - bash hello.sh
+
+* ファイル単体で実行できるようにする
+    hello.sh
+        - #!/bin/bash
+        - echo "hello world"
+* パーミッションを変更
+    chmod u+x hello.sh
