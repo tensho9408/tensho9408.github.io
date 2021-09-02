@@ -10,9 +10,14 @@ Welcome to rst-memo's documentation!
 
 .. toctree::
    :maxdepth: 2
+   :caption: OverView
+   :numbered:
 
+       
    sample
+   Linux
 
+    
 Indices and tables
 ==================
 
