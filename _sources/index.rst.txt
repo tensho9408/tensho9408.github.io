@@ -14,8 +14,8 @@ Welcome to rst-memo's documentation!
    :numbered:
 
        
-   sample
-   Linux
+   /test/sample
+   /test/Linux
 
     
 Indices and tables
