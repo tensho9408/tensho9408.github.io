@@ -57,3 +57,51 @@
 .. figure:: ../_static/IMG_0178.png
     :width: 500px
 
+
+コード
+=======
+
+.. code-block::
+    :caption: hello.go
+
+
+    class Foo(object):
+
+        def __init__(self, value):
+            print("value = {}".format(value))
+            raise NotImplementedError("EmptyClass")
+
+
+Todo
+=====
+
+1. 新メンバー
+2. 開発者向け
+3. 作業の進め方
+
+.. todo::
+
+
+    **事務連絡** が抜けています。追加してください。(ten)
+
+
+その他の機能
+===========
+テーブル
+------------
+
+=====  =====  =======
+A      B      A and B
+=====  =====  =======
+False  False  False
+True   False  False
+False  True   False
+True   True   True
+=====  =====  =======
+
+
+脚注
+-------
+
+これは 脚注 [#]_ です。
+.. [#] 本文の下の方につける注記
