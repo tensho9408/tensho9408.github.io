@@ -12,16 +12,6 @@
 スケジュール確認
 ===============
 
-.. csv-table:: Status - 09/30~10/08
-    :header: "Check", "Status", "Note"
-    :widths: 1, 1, 1
-
-    09/30, "Green", In Setup.
-    10/03, "Amber", Pending.
-
-
-
-
 
 .. todo::
 
@@ -35,6 +25,15 @@
 
 | **希望日時**:
 | 10月7~10日 20~22時
+
+.. csv-table:: Status - 09/30~10/08
+    :header: "Check", "Status", "Note"
+    :widths: 1, 1, 1
+
+    09/30, "Green", In Setup.
+    10/03, "Amber", Pending.
+
+-----
 
 暫定日時::
 
