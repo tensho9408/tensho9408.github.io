@@ -28,7 +28,6 @@
     09/30, "Green", In Setup.
     10/03, "Amber", Pending.
 
------
 
 
 | **希望日時**:
