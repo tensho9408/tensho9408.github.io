@@ -1,0 +1,66 @@
+.. My Presentation documentation master file, created by
+   sphinx-quickstart on Thu Oct  7 02:12:15 2021.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+===========================================
+Sphinxでのプレゼンテーションを作成する
+===========================================
+
+
+準備
+====
+
+Python仮想環境を用意する
+------------------------
+
+ローカル共通環境に不必要なライブラリをインストールしないために、
+``venv`` を使って仮想環境を用意します。
+
+ドキュメントを新規作成する
+--------------------------
+
+``sphinx-quickstart`` を使って、ドキュメントに必要なファイル一式を用意します。
+
+執筆
+====
+
+
+コードサンプル
+===============
+
+.. code-block:: Python
+
+   extensions = [
+      'sphinx_revealjs',
+   ]
+
+======================================
+スピーカーノート機能を有効にする
+======================================
+
+.. ここのコメント行は、スピーカーノートして扱われる
+
+
+絵文字を使おう
+----------------
+
+絵文字芸：スト2
+
+|:flag_jp:| |:arrow_right:| |:arrow_right:| |:airplane:| |:arrow_right:| |:arrow_right:| |:flag_th:|
+
+
+
+動画を埋め込もう
+=================
+
+.. youtube:: Ps9JiaYqAFg
+
+
+ツイートを埋め込もう
+--------------------
+
+.. raw:: html
+
+    <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">マイクを設置した状態でdiscordのGo Liveを試してみてるんだけど、Enterだけ音を拾いがちな傾向があるらしく、なんだかんだで自分も「カタカタカタ..ッッターン！」ってやってるらしい</p>&mdash; kAZUYA tAKEI (@attakei) <a href="https://twitter.com/attakei/status/1358266239131348993?ref_src=twsrc%5Etfw">February 7, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
