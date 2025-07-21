@@ -1,0 +1,6 @@
+@charset "UTF-8";
+/* sidebar のロゴ画像を小さく調整 */
+img.logo {
+  max-width: 150px; /* 必要に応じて変更してください */
+  height: auto;
+}/*# sourceMappingURL=style.css.map */

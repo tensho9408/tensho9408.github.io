@@ -39,3 +39,4 @@ html_static_path = ['_static']
 html_logo = '_static/logo.png'
 # ブラウザのタブアイコンにする場合
 html_favicon = '_static/favicon.ico'  # favicon.ico を用意する場合
+html_css_files = ['css/style.css']

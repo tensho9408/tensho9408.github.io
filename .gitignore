@@ -6,4 +6,5 @@ docs/build/
 _templates/
 make.bat
 Makefile
-
+style.scss
+style.css.map
