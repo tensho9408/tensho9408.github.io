@@ -6,11 +6,29 @@
   margin-bottom: 0.809em;
   z-index: 200;
   background-color: slategray;
+  background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 20%), radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 20%);
   text-align: center;
   color: #fcfcfc;
 }
 
 .wy-side-nav-search .logo {
-  max-height: 40px; /* 適宜変更 */
+  max-height: 140px; /* 適宜変更 */
   width: auto;
+}
+
+/* ロゴに回転アニメーションを追加 */
+@keyframes rotateLogo {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.wy-side-nav-search .logo {
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.wy-side-nav-search .logo:hover {
+  animation: rotateLogo 1.2s ease-in-out;
 }/*# sourceMappingURL=style.css.map */
