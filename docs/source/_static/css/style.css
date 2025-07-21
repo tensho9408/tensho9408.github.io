@@ -1,5 +1,16 @@
 @charset "UTF-8";
+.wy-side-nav-search {
+  display: block;
+  width: 300px;
+  padding: 0.809em;
+  margin-bottom: 0.809em;
+  z-index: 200;
+  background-color: slategray;
+  text-align: center;
+  color: #fcfcfc;
+}
+
 .wy-side-nav-search .logo {
-  max-height: 140px; /* 適宜変更 */
+  max-height: 40px; /* 適宜変更 */
   width: auto;
 }/*# sourceMappingURL=style.css.map */
