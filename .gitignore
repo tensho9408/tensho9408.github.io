@@ -3,3 +3,7 @@
 venv/
 __pycache__/
 docs/build/
+_templates/
+make.bat
+Makefile
+

@@ -32,4 +32,10 @@ source_encoding = "utf-8"
 
 # html_theme = 'alabaster'
 html_theme = "sphinx_rtd_theme"
+
+
 html_static_path = ['_static']
+# サイドバーに表示するロゴ画像を指定（ファイル名を適切に変更してください）
+html_logo = '_static/logo.png'
+# ブラウザのタブアイコンにする場合
+html_favicon = '_static/favicon.ico'  # favicon.ico を用意する場合
