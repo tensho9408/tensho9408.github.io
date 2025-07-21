@@ -11,10 +11,10 @@ Add your content using ``reStructuredText`` syntax. See the
 documentation for details.
 
 
-.. image:: _static/logo.png
-   :align: center
-   :width: 400px
-   
+.. .. image:: _static/logo.png
+..    :align: center
+..    :width: 400px
+
 
 .. toctree::
    :maxdepth: 2
