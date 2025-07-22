@@ -16,19 +16,115 @@
   width: auto;
 }
 
-/* ロゴに回転アニメーションを追加 */
-@keyframes rotateLogo {
+/* シャドウを抑えたクールなロゴアニメーション */
+/* 高度なロゴアニメーション */
+@keyframes coolLogoAnimation {
   0% {
-    transform: rotate(0deg);
+    transform: rotateY(0) scale(1);
+    filter: drop-shadow(0 0 5px rgba(104, 173, 222, 0.5));
+  }
+  25% {
+    transform: rotateY(90deg) scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(0, 200, 255, 0.8));
+  }
+  50% {
+    transform: rotateY(180deg) scale(1.2);
+    filter: drop-shadow(0 0 25px rgb(199, 169, 244));
+  }
+  75% {
+    transform: rotateY(270deg) scale(1.1);
+    filter: drop-shadow(0 0 15px rgba(212, 81, 248, 0.8));
   }
   100% {
-    transform: rotate(360deg);
+    transform: rotateY(360deg) scale(1);
+    filter: drop-shadow(0 0 5px rgba(0, 150, 255, 0.5));
+  }
+}
+@keyframes gradientPulse {
+  0% {
+    background-position: 0% 50%;
+    background-size: 100% 100%;
+  }
+  50% {
+    background-position: 100% 50%;
+    background-size: 200% 200%;
+  }
+  100% {
+    background-position: 0% 50%;
+    background-size: 100% 100%;
+  }
+}
+@keyframes neonGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #0ff, 0 0 30px #0ff;
+  }
+  50% {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 50px #0ff;
   }
 }
 .wy-side-nav-search .logo {
-  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  display: inline-block;
+  transition: all 0.5s ease-in-out;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  padding: 1px;
+  background: linear-gradient(45deg, #1a2a6c, #b21f1f, #1a2a6c);
+  background-size: 200% 200%;
+  box-shadow: 0 0 25px rgba(80, 169, 204, 0.5);
+}
+
+.wy-side-nav-search .logo::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
 }
 
 .wy-side-nav-search .logo:hover {
-  animation: rotateLogo 1.2s ease-in-out;
+  animation: coolLogoAnimation 1.8s ease-in-out, gradientPulse 3s ease-in-out infinite;
+  transform: scale(1.05);
+}
+
+.wy-side-nav-search .logo:hover::before {
+  animation: shine 1.5s ease-in-out forwards;
+}
+
+@keyframes shine {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translateX(-100%);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translateX(100%);
+  }
+}
+/* ロゴテキストのアニメーション */
+.wy-side-nav-search .logo .logo-text {
+  display: inline-block;
+  font-weight: bold;
+  color: white !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.wy-side-nav-search .logo:hover .logo-text {
+  animation: neonGlow 1.5s ease-in-out infinite;
+  transform: scale(1.1);
 }/*# sourceMappingURL=style.css.map */
